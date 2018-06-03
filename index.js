@@ -1,12 +1,12 @@
 "use strict";
 
-import FileSize from './class/file_size.js';
+import {FileSize, Units} from './class/file_size.js';
 
 const defaultChunkSizeInMb = 1
 
 let chunk = function(file, chunkSize) {
   if (!chunkSize) {
-    chunkSize = new FileSize(1, 'MB')
+    chunkSize = new FileSize(1, Units.MB)
   }
 
   if (file.size <= chunkSize.bytes()) {
@@ -46,7 +46,7 @@ function chunkArray(myArray, chunkSize){
   let index = 0;
   const arrayLength = myArray.length;
   let tempArray = [];
-  
+
   for (index = 0; index < arrayLength; index += chunkSize) {
       let chunk = myArray.slice(index, index+chunkSize);
       tempArray.push(chunk);
@@ -56,6 +56,7 @@ function chunkArray(myArray, chunkSize){
 }
 
 exports = module.exports = {
-  chunk: chunk,
-  FileSize: FileSize
+  chunk,
+  FileSize,
+  Units
 }
