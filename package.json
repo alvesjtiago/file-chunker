@@ -1,7 +1,7 @@
 {
   "name": "file-chunker",
   "version": "0.0.1",
-  "description": "Chunk files into smaller ones.",
+  "description": "Chunk files into smaller ones on the browser.",
   "main": "index.js",
   "scripts": {
     "test": "browserify test/*.js | tape-run | faucet"
