@@ -1,9 +1,9 @@
-const chunk = require('../');
-const test  = require('tape');
+import { chunk, FileSize } from '../';
+import test from 'tape';
 
 test("should return one file if it's less than chunk size", function (t) {
   var file = new File(["test"], "test.js")
-  chunk(file, 1)
+  chunk(file, new FileSize(1, 'MB'))
     .then((files) => {
       t.equal(1, files.length);
       t.end();
@@ -25,10 +25,10 @@ test("should return multiple files if it's larger than chunk size", function (t)
   
   var file = new File(sb, {type: 'application/vnd.ms-excel'});
 
-  var chunk_size = 1
-  var chunks = Math.ceil((file.size / 1000000.0) / chunk_size)
+  var chunk_size = new FileSize(1, 'MB').bytes()
+  var chunks = Math.ceil(file.size / chunk_size)
 
-  chunk(file, 1)
+  chunk(file, new FileSize(1, 'MB'))
     .then((files) => {
       t.equal(chunks, files.length);
       t.end();

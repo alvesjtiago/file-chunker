@@ -1,79 +1,61 @@
 "use strict";
 
-(function() {
-  const defaultChunkSizeInMb = 1
+import FileSize from './class/file_size.js';
 
-  var chunk = function(file, chunkSize) {
-    if (!chunkSize) {
-      chunkSize = defaultChunkSizeInMb
-    }
+const defaultChunkSizeInMb = 1
 
-    const sizeInMb = file.size / 1000000.0
-
-    if (sizeInMb <= chunkSize) {
-      return Promise.resolve([file])
-    } else {
-      return new Promise((resolve, reject) => {
-        var reader = new FileReader();
-        reader.onload = function() {
-
-          var arrayBuffer = this.result,
-              array       = new Uint8Array(arrayBuffer);
-
-          const arrayOfFilesBytes = chunkArray(array, chunkSize * 1000000)
-
-          // Write file parts
-          var promises = []
-          arrayOfFilesBytes.forEach(function(element) {
-            promises.push(createFile(element))
-          });
-          Promise.all(promises)
-            .then(function(files) {
-              resolve(files)
-            })
-            .catch(() => {
-              reject()
-            })
-        }
-        reader.readAsArrayBuffer(file);
-      })
-    }
+let chunk = function(file, chunkSize) {
+  if (!chunkSize) {
+    chunkSize = new FileSize(1, 'MB')
   }
 
-  function createFile(arrayBuffer) {
-    var file = new File([arrayBuffer], "file")
-    return Promise.resolve(file)
+  if (file.size <= chunkSize.bytes()) {
+    return Promise.resolve([file])
+  } else {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      reader.onload = function() {
+
+        let arrayBuffer = this.result,
+            array       = new Uint8Array(arrayBuffer);
+
+        const arrayOfFilesBytes = chunkArray(array, chunkSize.bytes())
+
+        // Write file parts
+        let promises = []
+        arrayOfFilesBytes.forEach(element => promises.push(createFile(element)))
+        Promise.all(promises)
+          .then(function(files) {
+            resolve(files)
+          })
+          .catch(() => {
+            reject()
+          })
+      }
+      reader.readAsArrayBuffer(file);
+    })
+  }
+}
+
+function createFile(arrayBuffer) {
+  const file = new File([arrayBuffer], "file")
+  return Promise.resolve(file)
+}
+
+function chunkArray(myArray, chunkSize){
+  let index = 0;
+  const arrayLength = myArray.length;
+  let tempArray = [];
+  
+  for (index = 0; index < arrayLength; index += chunkSize) {
+      let chunk = myArray.slice(index, index+chunkSize);
+      tempArray.push(chunk);
   }
 
-  function chunkArray(myArray, chunkSize){
-    var index = 0;
-    var arrayLength = myArray.length;
-    var tempArray = [];
-    
-    for (index = 0; index < arrayLength; index += chunkSize) {
-        var chunk = myArray.slice(index, index+chunkSize);
-        tempArray.push(chunk);
-    }
+  return tempArray;
+}
 
-    return tempArray;
-  }
-
-  chunk.noConflict = function() {
-    root.chunk = previous_chunk
-    return chunk
-  }
-
-  var root = this
-  var previous_chunk = root.chunk
-
-  if( typeof exports !== 'undefined' ) {
-    if( typeof module !== 'undefined' && module.exports ) {
-      exports = module.exports = chunk
-    }
-    exports.chunk = chunk
-  } 
-  else {
-    root.chunk = chunk
-  }
-
-}).call(this);
+exports = module.exports = {
+  chunk: chunk,
+  FileSize: FileSize
+}

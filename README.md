@@ -11,10 +11,10 @@ npm i file-chunker
 ## Usage
 
 ```javascript
-const chunk = require('file-chunker');
+import { chunk, FileSize } from 'file-chunker';
 
 var file = new File("example content", "test.js")
-var chunkSize = 1 // Size in MB
+var chunkSize = new FileSize(1, 'MB')
 
 chunk(file, chunkSize)
   .then((files) => {
