@@ -1,0 +1,18 @@
+{
+  "name": "file-chunker",
+  "version": "0.0.1",
+  "description": "Chunk files into smaller ones.",
+  "main": "index.js",
+  "scripts": {
+    "test": "browserify test/*.js | tape-run | faucet"
+  },
+  "author": "Tiago Alves <alvesjtiago@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^16.2.2",
+    "faucet": "0.0.1",
+    "tape": "^4.9.0",
+    "tape-run": "^4.0.0"
+  }
+}
