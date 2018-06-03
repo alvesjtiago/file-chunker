@@ -1,33 +1,29 @@
 'use strict';
 
+const Units = Object.freeze({
+    B: Symbol("B"),
+    KB: Symbol("KB"),
+    MB: Symbol("MB"),
+    GB: Symbol("GB")
+});
+
+const Multipliers = {
+  [Units.B]: 1.0,
+  [Units.KB]: 100.0,
+  [Units.MB]: 1000000.0,
+  [Units.GB]: 1000000000.0
+}
+
 class FileSize {
-  constructor(value = 1, unit = 'MB') {
+  // unit options: B / KB / MB / GB
+  constructor(value = 1, unit = Units.MB) {
     this.value = value;
-    // unit options: B / KB / MB / GB
     this.unit = unit;
   }
 
   bytes() {
-    let multiplier = 1000000.0 // default to MB
-    switch (this.unit) {
-      case 'B':
-        multiplier = 1.0
-        break;
-      case 'KM':
-        multiplier = 100.0
-        break;
-      case 'MB':
-        multiplier = 1000000.0
-        break;
-      case 'GB':
-        multiplier = 1000000000.0
-        break;
-      default:
-        multiplier = 1000000.0
-    }
-
-    return this.value * multiplier;
+    return this.value * Multipliers.hasOwnProperty(this.unit) ? Multipliers[this.unit] : Multipliers[Units.MB];
   }
 }
 
-module.exports = FileSize;
+module.exports = {Units, FileSize};
