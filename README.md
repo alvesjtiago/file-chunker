@@ -1,4 +1,4 @@
-# file-chunker
+# file-chunker [![Build Status](https://travis-ci.org/alvesjtiago/file-chunker.svg?branch=master)](https://travis-ci.org/alvesjtiago/file-chunker)
 
 Chunk files into smaller ones directly on the browser.
 
