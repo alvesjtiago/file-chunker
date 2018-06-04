@@ -8,5 +8,11 @@ addons:
 install:
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-  - npm install -g browserify babelify @babel/preset-env @babel/core faucet
+  - npm install -g browserify babelify @babel/preset-env @babel/core faucet babel-tape-runner
   - npm install
+jobs:
+  include:
+    - stage: unit
+      script: npm test
+    - stage: integration
+      script: npm run test-browser

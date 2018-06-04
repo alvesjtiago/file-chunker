@@ -4,7 +4,8 @@
   "description": "Chunk files into smaller ones on the browser.",
   "main": "index.js",
   "scripts": {
-    "test": "browserify test/*.js | tape-run | faucet"
+    "test": "tape -r @babel/register tests/unit/*.js | faucet",
+    "test-browser": "browserify tests/integration/*.js | tape-run"
   },
   "author": "Tiago Alves <alvesjtiago@gmail.com>",
   "license": "MIT",
@@ -12,6 +13,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.49",
     "@babel/preset-env": "^7.0.0-beta.49",
+    "@babel/register": "^7.0.0-beta.49",
     "babelify": "^9.0.0",
     "browserify": "^16.2.2",
     "faucet": "0.0.1",

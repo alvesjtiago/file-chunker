@@ -9,7 +9,7 @@ const Units = Object.freeze({
 
 const Multipliers = {
   [Units.B]: 1.0,
-  [Units.KB]: 100.0,
+  [Units.KB]: 1000.0,
   [Units.MB]: 1000000.0,
   [Units.GB]: 1000000000.0
 }
@@ -22,7 +22,7 @@ class FileSize {
   }
 
   bytes() {
-    return this.value * Multipliers.hasOwnProperty(this.unit) ? Multipliers[this.unit] : Multipliers[Units.MB];
+    return this.value * (Multipliers.hasOwnProperty(this.unit) ? Multipliers[this.unit] : Multipliers[Units.MB]);
   }
 }
 

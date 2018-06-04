@@ -1,6 +1,8 @@
 "use strict";
 
-import {FileSize, Units} from './class/file_size.js';
+import {FileSize, Units} from './classes/file_size.js';
+import chunkArray from './utilities/chunk_array.js';
+import createFile from './utilities/create_file.js';
 
 const defaultChunkSizeInMb = 1
 
@@ -35,24 +37,6 @@ let chunk = function(file, chunkSize) {
       reader.readAsArrayBuffer(file);
     })
   }
-}
-
-function createFile(arrayBuffer) {
-  const file = new File([arrayBuffer], "file")
-  return Promise.resolve(file)
-}
-
-function chunkArray(myArray, chunkSize){
-  let index = 0;
-  const arrayLength = myArray.length;
-  let tempArray = [];
-
-  for (index = 0; index < arrayLength; index += chunkSize) {
-      let chunk = myArray.slice(index, index+chunkSize);
-      tempArray.push(chunk);
-  }
-
-  return tempArray;
 }
 
 exports = module.exports = {

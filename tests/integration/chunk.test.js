@@ -1,4 +1,4 @@
-import { chunk, FileSize, Units } from '../';
+import { chunk, FileSize, Units } from '../../';
 import test from 'tape';
 
 test("should return one file if it's less than chunk size", function (t) {
