@@ -1,11 +1,17 @@
 {
   "name": "file-chunker",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Chunk files into smaller ones on the browser.",
   "main": "index.js",
   "scripts": {
     "test": "tape -r @babel/register tests/unit/*.js | faucet",
-    "test-browser": "browserify tests/integration/*.js | tape-run"
+    "test-browser": "browserify tests/integration/*.js | tape-run",
+    "lint": "eslint --fix \"index.js\" && eslint --fix \"classes/*\" && eslint --fix \"utilities/*\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   },
   "author": "Tiago Alves <alvesjtiago@gmail.com>",
   "license": "MIT",
@@ -18,7 +24,13 @@
     "browserify": "^16.2.2",
     "faucet": "0.0.1",
     "tape": "^4.9.0",
-    "tape-run": "^4.0.0"
+    "tape-run": "^4.0.0",
+    "eslint-plugin-prettier": "3.1.1",
+    "eslint-config-prettier": "3.1.0",
+    "eslint": "^7.0.0",
+    "prettier": "^1.18.2",
+    "husky": "^3.0.8",
+    "babel-eslint": "^10.1.0"
   },
   "keywords": [
     "file",
