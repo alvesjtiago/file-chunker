@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tape -r @babel/register tests/unit/*.js | faucet",
     "test-browser": "browserify tests/integration/*.js | tape-run",
-    "lint": "eslint --fix \"index.js\" && eslint --fix \"classes/*\" && eslint --fix \"utilities/*\""
+    "lint": "eslint --fix *"
   },
   "lint-staged": {
     "*.{js,jsx}": [
