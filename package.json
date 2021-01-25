@@ -1,5 +1,5 @@
 {
-  "name": "file-chunker-2",
+  "name": "file-chunker",
   "version": "0.0.5",
   "description": "Chunk files into smaller ones on the browser.",
   "main": "index.js",
