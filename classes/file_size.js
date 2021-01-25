@@ -22,6 +22,7 @@ export class FileSize {
   bytes() {
     return (
       this.value *
+      // eslint-disable-next-line no-prototype-builtins
       (Multipliers.hasOwnProperty(this.unit)
         ? Multipliers[this.unit]
         : Multipliers[Units.MB])

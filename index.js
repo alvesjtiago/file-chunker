@@ -2,9 +2,9 @@ import { FileSize, Units } from './classes/file_size.js';
 import chunkArray from './utilities/chunk_array.js';
 import createFile from './utilities/create_file.js';
 
-const defaultChunkSizeInMb = 1;
+// const defaultChunkSizeInMb = 1;
 
-let chunk = function (file, chunkSize) {
+let chunk = function(file, chunkSize) {
   if (!chunkSize) {
     chunkSize = new FileSize(1, Units.MB);
   }
@@ -14,7 +14,7 @@ let chunk = function (file, chunkSize) {
   } else {
     return new Promise((resolve, reject) => {
       let reader = new FileReader();
-      reader.onload = function () {
+      reader.onload = function() {
         let arrayBuffer = this.result,
           array = new Uint8Array(arrayBuffer);
 
@@ -26,7 +26,7 @@ let chunk = function (file, chunkSize) {
           promises.push(createFile(element)),
         );
         Promise.all(promises)
-          .then(function (files) {
+          .then(function(files) {
             resolve(files);
           })
           .catch(() => {
