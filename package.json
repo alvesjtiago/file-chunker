@@ -14,6 +14,11 @@
       "git add"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "author": "Tiago Alves <alvesjtiago@gmail.com>",
   "license": "MIT",
   "dependencies": {},
@@ -30,6 +35,7 @@
     "eslint-config-prettier": "3.1.0",
     "eslint": "^7.0.0",
     "prettier": "^1.18.2",
+    "husky": "^3.0.8",
     "babel-eslint": "^10.1.0"
   },
   "keywords": [
